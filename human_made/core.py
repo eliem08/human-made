@@ -1,12 +1,14 @@
 """Writing-process signals, verdict tiers and signed human-made certificates."""
+
 from __future__ import annotations
 
 import hashlib
 import hmac
+import itertools
 import json
 import os
 import statistics
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 
 __all__ = ["Signals", "analyze", "verdict", "certify", "verify", "synthetic_session"]
@@ -33,14 +35,17 @@ def analyze(events: list[dict]) -> Signals:
     deleted = sum(e.get("n", 1) for e in events if e["type"] == "delete")
     final = max(0, typed + pasted - deleted)
     key_times = [e["t"] for e in events if e["type"] in ("insert", "delete")]
-    gaps = [b - a for a, b in zip(key_times, key_times[1:]) if b > a]
+    gaps = [b - a for a, b in itertools.pairwise(key_times) if b > a]
     short = [g for g in gaps if g <= 2.0]
     cv = statistics.pstdev(short) / statistics.mean(short) if len(short) >= 5 and statistics.mean(short) > 0 else 0.0
     pauses = sum(1 for g in gaps if g > 2.0)
     active_s = sum(short)
     duration = (events[-1]["t"] - events[0]["t"]) if len(events) > 1 else 0.0
     return Signals(
-        typed_chars=typed, pasted_chars=pasted, deleted_chars=deleted, final_chars=final,
+        typed_chars=typed,
+        pasted_chars=pasted,
+        deleted_chars=deleted,
+        final_chars=final,
         paste_ratio=round(pasted / final, 3) if final else 0.0,
         revision_ratio=round(deleted / max(typed + pasted, 1), 3),
         cadence_cv=round(cv, 3),
@@ -69,7 +74,9 @@ def verdict(s: Signals) -> tuple[str, list[str]]:
         notes.append("almost no revisions")
     if notes:
         return "human-led", notes
-    return "human-made", [f"typed with natural rhythm (CV {s.cadence_cv}), {s.revision_ratio:.0%} revised, {s.pause_share:.0%} thinking pauses"]
+    return "human-made", [
+        f"typed with natural rhythm (CV {s.cadence_cv}), {s.revision_ratio:.0%} revised, {s.pause_share:.0%} thinking pauses"
+    ]
 
 
 def _key(key: bytes | None) -> bytes:
@@ -105,17 +112,17 @@ def verify(cert: dict, text: str, key: bytes | None = None) -> tuple[bool, str]:
 def synthetic_session(text: str, human: bool = True, seed: int = 7) -> list[dict]:
     """Generate a plausible process log (for demos/tests). human=False simulates a paste."""
     import random
+
     rnd = random.Random(seed)
     if not human:
         return [{"t": 0.0, "type": "paste", "n": len(text), "pos": 0}]
-    t, events, pos = 0.0, [], 0
-    for ch in text:
+    t, events = 0.0, []
+    for pos, ch in enumerate(text):
         t += rnd.lognormvariate(-1.9, 0.6) + (rnd.uniform(2.5, 6) if ch in ".!?" and rnd.random() < 0.6 else 0)
         events.append({"t": round(t, 3), "type": "insert", "n": 1, "pos": pos})
-        pos += 1
         if rnd.random() < 0.04:
             t += rnd.uniform(0.2, 0.6)
-            events.append({"t": round(t, 3), "type": "delete", "n": 1, "pos": pos - 1})
+            events.append({"t": round(t, 3), "type": "delete", "n": 1, "pos": pos})
             t += rnd.lognormvariate(-1.9, 0.5)
-            events.append({"t": round(t, 3), "type": "insert", "n": 1, "pos": pos - 1})
+            events.append({"t": round(t, 3), "type": "insert", "n": 1, "pos": pos})
     return events

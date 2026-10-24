@@ -1,4 +1,5 @@
 """Regenerate examples/session.jsonl from examples/essay.txt."""
+
 import json
 import pathlib
 

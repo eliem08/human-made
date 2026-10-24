@@ -3,8 +3,10 @@ from datetime import datetime, timezone
 
 from human_made import analyze, certify, synthetic_session, verdict, verify
 
-TEXT = ("I rewrote this paragraph three times before it felt right. Writing is mostly deleting, "
-        "and the good sentences only show up after the bad ones get out of the way.")
+TEXT = (
+    "I rewrote this paragraph three times before it felt right. Writing is mostly deleting, "
+    "and the good sentences only show up after the bad ones get out of the way."
+)
 
 
 class Tests(unittest.TestCase):

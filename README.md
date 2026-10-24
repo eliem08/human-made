@@ -1,5 +1,7 @@
 # human-made
 
+[![CI](https://github.com/eliem08/human-made/actions/workflows/ci.yml/badge.svg)](https://github.com/eliem08/human-made/actions/workflows/ci.yml)
+
 > **The organic label for human-made content** — proof a person made it.
 
 AI detectors guess from the finished text and are wrong constantly. The
@@ -37,3 +39,26 @@ human-made verify cert.json examples/essay.txt
 - Editor plugins (VS Code, Google Docs, Obsidian) emitting the process log
 - Public-key signatures (Ed25519) and C2PA manifest embedding
 - Process replay viewer for disputes, privacy-preserving (no keystroke content stored)
+
+## Development
+
+Zero runtime dependencies; Python 3.10+.
+
+```bash
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+python -m unittest discover -s tests -t .           # unit + CLI smoke tests
+ruff check . && ruff format --check .               # lint + format
+```
+
+```
+human_made/core.py       domain logic (pure, importable, fully tested)
+human_made/__main__.py   CLI (`human-made ...` / `python -m human_made ...`)
+tests/                unit tests + generated CLI smoke tests
+examples/             sample inputs used by the docs and smoke tests
+```
+
+CI runs lint and tests on Ubuntu and Windows across Python 3.10, 3.12 and 3.13.
+Design, data model, trade-offs and production path: **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+
+Part of the [agent-economy](https://github.com/eliem08/agent-economy) portfolio (idea #35).
