@@ -7,9 +7,11 @@ output a legacy Windows console (cp1252) can encode.
 
 import contextlib
 import io
+import os
 import pathlib
 import tempfile
 import unittest
+from unittest import mock
 
 from human_made.__main__ import main
 
@@ -22,7 +24,7 @@ COMMANDS = [
 
 class CliSmokeTests(unittest.TestCase):
     def test_commands(self):
-        with tempfile.TemporaryDirectory() as tmp:
+        with tempfile.TemporaryDirectory() as tmp, mock.patch.dict(os.environ, {"HUMAN_MADE_KEY_FILE": f"{tmp}/key"}):
             for template in COMMANDS:
                 argv = [a.replace("{root}", str(ROOT)).replace("{tmp}", tmp) for a in template]
                 with self.subTest(argv=template):

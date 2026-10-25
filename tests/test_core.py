@@ -41,6 +41,20 @@ class Tests(unittest.TestCase):
         self.assertFalse(verify(forged, TEXT, key=b"k")[0])
         self.assertFalse(verify(cert, TEXT, key=b"other")[0])
 
+    def test_no_guessable_default_key(self):
+        import os
+        import tempfile
+        from unittest import mock
+
+        forged = certify(synthetic_session(TEXT), TEXT, "Mallory", key=b"dev-key")  # attacker signs what they like
+        with tempfile.TemporaryDirectory() as tmp:
+            env = {"HUMAN_MADE_KEY_FILE": os.path.join(tmp, "key")}
+            with mock.patch.dict(os.environ, env):
+                os.environ.pop("HUMAN_MADE_KEY", None)
+                self.assertFalse(verify(forged, TEXT)[0])
+                mine = certify(synthetic_session(TEXT), TEXT, "Sam")
+                self.assertTrue(verify(mine, TEXT)[0], "key file must persist between certify and verify")
+
 
 if __name__ == "__main__":
     unittest.main()

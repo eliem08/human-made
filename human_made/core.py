@@ -7,6 +7,7 @@ import hmac
 import itertools
 import json
 import os
+import secrets
 import statistics
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
@@ -80,7 +81,23 @@ def verdict(s: Signals) -> tuple[str, list[str]]:
 
 
 def _key(key: bytes | None) -> bytes:
-    return key or os.environ.get("HUMAN_MADE_KEY", "dev-key").encode()
+    """Explicit key, else HUMAN_MADE_KEY, else a random per-user key file - never a guessable constant.
+
+    The file (default ~/.human-made/key, override with HUMAN_MADE_KEY_FILE) is created once, owner-only where the
+    OS allows, so `certify` and a later `verify` on the same machine agree while nobody else can mint labels.
+    """
+    if key:
+        return key
+    if os.environ.get("HUMAN_MADE_KEY"):
+        return os.environ["HUMAN_MADE_KEY"].encode()
+    path = os.environ.get("HUMAN_MADE_KEY_FILE") or os.path.join(os.path.expanduser("~"), ".human-made", "key")
+    if not os.path.exists(path):
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            fh.write(secrets.token_hex(32))
+    with open(path, encoding="utf-8") as fh:
+        return fh.read().strip().encode()
 
 
 def certify(events: list[dict], text: str, author: str, key: bytes | None = None, now: datetime | None = None) -> dict:
