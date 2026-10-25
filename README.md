@@ -1,16 +1,44 @@
-# human-made
+<!-- sell-kit:start -->
+# Human Made
 
 [![CI](https://github.com/eliem08/human-made/actions/workflows/ci.yml/badge.svg)](https://github.com/eliem08/human-made/actions/workflows/ci.yml)
 
-> **The organic label for human-made content** — proof a person made it.
+> **Proof that a person wrote it, not a machine.**
 
-AI detectors guess from the finished text and are wrong constantly. The
-better signal is *how* the text was made: humans type in bursts, pause,
-delete, rewrite; pasted-in machine output arrives in one block. `human-made`
-records the writing process, scores it, and issues a signed, verifiable
-"Human-made" label bound to the exact final text.
+**Who it's for:** Writers, publishers and schools that need to show work is human.
 
-## What the MVP does
+**The problem:** AI detectors guess and get it wrong, and writers have no way to prove they actually did the work.
+
+**What you get:** Turn real writing-process signals into a tiered, signed certificate bound to the exact text, which anyone can verify.
+
+## Quickstart
+
+Customers receive a release archive with the wheel and the examples. Python 3.10+ and no other dependencies.
+
+```bash
+pip install human_made-0.1.0-py3-none-any.whl
+human-made score examples/session.jsonl
+human-made certify examples/session.jsonl examples/essay.txt --author "Sam Lee"
+```
+
+## Pricing
+
+Every plan starts with a 14-day free trial. Prices in USD, billed monthly unless noted.
+
+| Plan | Price | Includes |
+|---|---|---|
+| **Writer** | $6 per month | Unlimited certificates; Verification link |
+| **Publisher** | $199 per month | Up to 50 writers; Bulk verification; Badge for articles |
+| **Education** | $3 per student per year | Class dashboards; Assignment certificates; LMS export |
+
+To start a trial or buy a plan, email **sales@YOUR-DOMAIN.com**.
+
+## Licence
+
+Proprietary. Copyright (c) 2026 eliem08. All rights reserved. Use requires a paid plan or an active trial; see [LICENSE](LICENSE).
+<!-- sell-kit:end -->
+
+## What it does
 
 - **Process log** (JSONL) from an editor plugin: `{t, type: insert|delete|paste, n, pos}`
 - **Signals**:

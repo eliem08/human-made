@@ -1,4 +1,4 @@
-"""The organic label for human-made content: proof a person made it."""
+"""Human Made: Proof that a person wrote it, not a machine."""
 
 from .core import *
 
