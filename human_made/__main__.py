@@ -20,7 +20,7 @@ def _text(path):
         return fh.read()
 
 
-def _run(argv=None):
+def build_parser():
     ap = argparse.ArgumentParser(prog="human-made")
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("score")
@@ -32,6 +32,11 @@ def _run(argv=None):
     v = sub.add_parser("verify")
     v.add_argument("cert")
     v.add_argument("text")
+    return ap
+
+
+def _run(argv=None):
+    ap = build_parser()
     a = ap.parse_args(argv)
     if a.cmd == "score":
         sig = analyze(_events(a.session))

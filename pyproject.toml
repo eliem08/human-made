@@ -23,6 +23,7 @@ dev = ["ruff>=0.6"]
 
 [project.scripts]
 human-made = "human_made.__main__:main"
+human-made-web = "human_made.web:main"
 
 [project.urls]
 Repository = "https://github.com/eliem08/human-made"
