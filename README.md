@@ -46,7 +46,7 @@ Every plan starts with a 14-day free trial. Prices in USD, billed monthly unless
 | **Publisher** | $199 per month | Up to 50 writers; Bulk verification; Badge for articles |
 | **Education** | $3 per student per year | Class dashboards; Assignment certificates; LMS export |
 
-To start a trial or buy a plan, email **sales@YOUR-DOMAIN.com**.
+To start a trial or buy a plan, [request access](https://github.com/eliem08/human-made/issues/new?title=Human%20Made%20trial&labels=sales).
 
 ## Licence
 
