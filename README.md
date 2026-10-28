@@ -47,20 +47,20 @@ To sell self-serve, set four variables and point a Stripe webhook at `https://<y
 |---|---|
 | `STRIPE_SECRET_KEY` | `sk_live_...` |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_...` |
-| `STRIPE_PRICES` | `team=price_123,business=price_456` |
+| `STRIPE_PRICES` | `writer=price_123,publisher=price_456` |
 | `PUBLIC_URL` | `https://human-made.example.com` |
 
-Buyers pick a plan on `/pricing`, pay on Stripe Checkout and see their API key once on the success page. Cancelling the subscription revokes the key. A selling server always requires a key.
+Buyers pick a plan on `/pricing`, pay on Stripe Checkout and see their API key once on the success page. Monthly plans start with a 14-day free trial. Cancelling the subscription revokes the key. A selling server always requires a key. Education is quoted per student, so it is not a self-serve Stripe plan — contact sales for it. `.env.example` lists every variable with no values.
 
 ## Pricing
 
-Every plan starts with a 14-day free trial. Prices in USD, billed monthly unless noted.
+Monthly plans start with a 14-day free trial. Prices in USD, billed monthly unless noted. All plans unlock the same software in this release; higher tiers add licence scope and support, not gated features.
 
 | Plan | Price | Includes |
 |---|---|---|
 | **Writer** | $6 per month | Unlimited certificates; Verification link |
-| **Publisher** | $199 per month | Up to 50 writers; Bulk verification; Badge for articles |
-| **Education** | $3 per student per year | Class dashboards; Assignment certificates; LMS export |
+| **Publisher** | $199 per month | Everything in Writer |
+| **Education** | $3 per student per year | Everything in Writer; billed per student on a custom quote (contact sales, not self-serve) |
 
 To start a trial or buy a plan, [request access](https://github.com/eliem08/human-made/issues/new?title=Human%20Made%20trial&labels=sales).
 
@@ -98,6 +98,7 @@ human-made verify cert.json examples/essay.txt
 - Editor plugins (VS Code, Google Docs, Obsidian) emitting the process log
 - Public-key signatures (Ed25519) and C2PA manifest embedding
 - Process replay viewer for disputes, privacy-preserving (no keystroke content stored)
+- Plan-differentiated features: writer seats, bulk verification and article badges (Publisher); class dashboards, assignment workflows and LMS export (Education)
 
 ## Development
 

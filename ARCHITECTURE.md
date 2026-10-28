@@ -17,6 +17,8 @@ flowchart LR
   Issuer -->|signed label| Writer
   Reader -->|text + label| Verifier
 ```
+Note: the editor plugin is the intended input source and is roadmap, not shipped; this release
+analyzes process-log files supplied directly.
 
 ## 3. Signals & thresholds
 | Signal | Human pattern | Fails when |
@@ -35,7 +37,11 @@ flowchart LR
 - **The certificate binds to exact content** (one changed character fails verification) and to its
   signals, so a forged tier fails the signature check.
 
-## 5. Production architecture
+## 5. Future production architecture (not shipped)
+The items below are roadmap, not shipped: this release analyzes process-log files and issues
+HMAC certificates. It ships no editor plugin, no Ed25519/KMS issuer, no public verifier page,
+and no dispute replay.
+
 Plugins for VS Code, Google Docs and Obsidian. An issuer service (Ed25519 via KMS, JWKS). A public
 verifier page and API. Optional dispute replay renders keystroke timing without characters.
 
