@@ -2,7 +2,7 @@
 
 SPEC = {
     "name": "Human Made",
-    "tagline": "Proof that a person wrote it, not a machine.",
+    "tagline": "Evidence that a person wrote it, from how it was written.",
     "cli": "human-made",
     "state": {},
     "ops": [

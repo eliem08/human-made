@@ -3,13 +3,13 @@
 
 [![CI](https://github.com/eliem08/human-made/actions/workflows/ci.yml/badge.svg)](https://github.com/eliem08/human-made/actions/workflows/ci.yml)
 
-> **Proof that a person wrote it, not a machine.**
+> **Evidence that a person wrote it, from how it was written.**
 
 **Who it's for:** Writers, publishers and schools that need to show work is human.
 
 **The problem:** AI detectors guess and get it wrong, and writers have no way to prove they actually did the work.
 
-**What you get:** Turn real writing-process signals into a tiered, signed certificate bound to the exact text, which anyone can verify.
+**What you get:** Turn writing-process signals into a tiered, signed certificate bound to the exact text, which readers can check against the issuer.
 
 ## Quickstart
 

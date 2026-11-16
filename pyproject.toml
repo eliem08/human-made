@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "human-made"
 version = "0.1.0"
-description = "Proof that a person wrote it, not a machine."
+description = "Evidence that a person wrote it, from how it was written."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "Proprietary" }

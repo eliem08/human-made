@@ -1,4 +1,4 @@
-"""Human Made: Proof that a person wrote it, not a machine."""
+"""Human Made: Evidence that a person wrote it, from how it was written."""
 
 from .core import *
 
