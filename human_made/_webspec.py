@@ -94,4 +94,24 @@ SPEC = {
             "id": "verify",
         },
     ],
+    "plans": [
+        {
+            "key": "writer",
+            "name": "Writer",
+            "price": "$6 per month",
+            "features": ["Unlimited certificates", "Certificate verification"],
+        },
+        {
+            "key": "publisher",
+            "name": "Publisher",
+            "price": "$199 per month",
+            "features": ["Up to 50 writers", "Hosted verification API"],
+        },
+        {
+            "key": "education",
+            "name": "Education",
+            "price": "$3 per student per year",
+            "features": ["Assignment certificates"],
+        },
+    ],
 }
