@@ -54,15 +54,18 @@ Buyers pick a plan on `/pricing`, pay on Stripe Checkout and see their API key o
 
 ## Pricing
 
-Every plan starts with a 14-day free trial. Prices in USD, billed monthly unless noted.
+Monthly plans start with a 14-day free trial. Prices in USD, billed monthly unless noted.
 
 | Plan | Price | Includes |
 |---|---|---|
-| **Writer** | $6 per month | Unlimited certificates; Verification link |
-| **Publisher** | $199 per month | Up to 50 writers; Bulk verification; Badge for articles |
-| **Education** | $3 per student per year | Class dashboards; Assignment certificates; LMS export |
+| **Writer** | $6 per month | Unlimited certificates; Certificate verification |
+| **Publisher** | $199 per month | Up to 50 writers; Hosted verification API |
+| **Education** | $3 per student per year | Assignment certificates |
 
 To start a trial or buy a plan, [request access](https://github.com/eliem08/human-made/issues/new?title=Human%20Made%20trial&labels=sales).
+
+Plan note: every plan runs the same software, and every API key unlocks all of it. Seat, agent and volume
+limits are licence terms; the code does not enforce them. Support, SLA and done-for-you items are services.
 
 ## Licence
 
